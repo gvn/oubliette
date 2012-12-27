@@ -1,0 +1,121 @@
+/*  ###########################################
+    Primitives & Resets
+    ########################################### */
+
+body,div,dl,dt,dd,ul,ol,li,a,h1,h2,h3,h4,h5,h6,pre,form,fieldset,label,input,textarea,p,blockquote,table,th,td,iframe {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    background: #fff;
+    color: #000;
+    font-size: 10px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    padding: 30px;
+}
+
+h1,h2,h3,h4,h5,h6 { font-weight: 900; }
+
+h1 {
+    font-size: 40px;
+    line-height: 1em;
+    margin-bottom: 0.66em;
+    font-weight: 100;
+}
+
+p {
+    font-size: 10px;
+    line-height: 1em;
+}
+
+address,caption,cite,code,dfn,th,var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ul,ol {
+    list-style: none;
+}
+
+a {
+    color: #000;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+abbr, img {
+    border: 0;
+}
+
+strong {
+    font-weight: 900;
+}
+
+em {
+    font-style: italic;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+caption, th, td {
+    text-align: left;
+    font-weight: normal;
+}
+
+/*  ###########################################
+    Utility Classes
+    ########################################### */
+
+.hidden { display: none; }
+
+.offscreen {
+    position: absolute;
+    display: block;
+    left: -999999px;
+    top: -999999px;
+}
+
+/*  ###########################################
+    Chrome
+    ########################################### */
+
+
+
+/*  ###########################################
+    Components
+    ########################################### */
+
+dl {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+    dt {
+        display: block;
+        font-weight: 900;
+    }
+    dd {
+        display: block;
+    }
+
+button {
+    margin-bottom: 2em;
+    font-size: 20px;
+    background: #eee;
+    border: 1px rgba(0,0,0,0.2) solid;
+    padding: 0.1em 0.66em;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+/*  ###########################################
+    View Specific Styles
+    ########################################### */
+
+
