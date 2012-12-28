@@ -8,8 +8,8 @@ window.ENO = {
         tempo: [20, 200], // BPM
         duration: [1, 100], // Bars
         signature: [1, 8],
-        // topics: [],
-        // instruments: [],
+        // topics: [], // Connect to random word API? http://randomword.setgetgo.com/get.php
+        // instruments: [], // Abstract > Concrete
         tracks: [1, 16]
     },
     init: function () {
@@ -18,7 +18,9 @@ window.ENO = {
             $pool,
             $cast;
 
-        $cast = $('button');
+        // Element Cache
+
+        $cast = $('<button>Cast</button>');
 
         // Build Pool HTML
 
@@ -32,8 +34,9 @@ window.ENO = {
             $pool.append(self.outputs[item]);
         }
 
-        // Append Pool DL
-        $('body').append($pool);
+        $('body').append($pool).append($cast);
+
+        // Event Handlers
 
         $cast.click(function(event) {
             self.cast();
@@ -44,27 +47,46 @@ window.ENO = {
             item,
             random,
             i,
-            ii,
-            textOutput;
+            ii;
+
+        function randomizeBetween(lower, upper) {
+            var randomNumber;
+
+            randomNumber = upper - lower;
+            randomNumber *= Math.random();
+            randomNumber += lower;
+            randomNumber = Math.floor(randomNumber);
+
+            return randomNumber;
+        }
+
+        function pickRandomSubset(pool) {
+            var subset = [];
+
+            pool.forEach(function (item) {
+                if (Math.random() >= 0.5) {
+                    subset.push(item);
+                }
+            });
+
+            return subset;
+        }
+
+        function spaceStrings(strings) {
+            var spacedOut = '';
+
+            strings.forEach(function (item) {
+                spacedOut += item + ' ';
+            });
+
+            return spacedOut;
+        }
 
         for (item in self.pool) {
             if (typeof self.pool[item][0] === 'string') {
-                textOutput = '';
-
-                random = Math.floor(Math.random() * self.pool[item].length);
-
-                for (i = 0, ii = random; i < ii; i++) {
-                    random = Math.floor(Math.random() * self.pool[item].length);
-                    textOutput += self.pool[item][random] + ' ';
-                }
-
-                self.outputs[item].text(textOutput);
+                self.outputs[item].text(spaceStrings(pickRandomSubset(self.pool[item])));
             } else if (typeof self.pool[item][0] === 'number') {
-                textOutput = '';
-
-                random = Math.floor(Math.random() * self.pool[item][1] + self.pool[item][0])
-
-                self.outputs[item].text(random);
+                self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]));
             }
         }
     }
