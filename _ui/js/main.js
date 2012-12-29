@@ -1,8 +1,13 @@
+/*global $: false, console: false */
+/*jslint browser: true, sloppy: true, forin: true, plusplus: true, maxerr: 50, indent: 4, white: true */
+
 if (typeof window.ENO !== 'undefined') {
     throw 'ENO already in use.';
+} else {
+    var ENO = null;
 }
 
-window.ENO = {
+ENO = {
     pool: {
         notes: ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#'],
         tempo: [20, 200], // BPM
@@ -38,7 +43,7 @@ window.ENO = {
 
         // Event Handlers
 
-        $cast.click(function(event) {
+        $cast.click(function (event) {
             self.cast();
         });
     },
@@ -83,10 +88,26 @@ window.ENO = {
         }
 
         for (item in self.pool) {
-            if (typeof self.pool[item][0] === 'string') {
-                self.outputs[item].text(spaceStrings(pickRandomSubset(self.pool[item])));
-            } else if (typeof self.pool[item][0] === 'number') {
-                self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]));
+            switch (item) {
+                case 'notes':
+                    self.outputs[item].text(spaceStrings(pickRandomSubset(self.pool[item])));
+                break;
+
+                case 'tempo':
+                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]) + ' bpm');
+                break;
+
+                case 'duration':
+                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]) + ' bars');
+                break;
+
+                case 'signature':
+                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]) + '/' + randomizeBetween(self.pool[item][0], self.pool[item][1]));
+                break;
+
+                case 'tracks':
+                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]));
+                break;
             }
         }
     }
