@@ -12,7 +12,7 @@ ENO = {
         notes: ['a', 'a#', 'b', 'c', 'c#', 'd', 'd#', 'e', 'f', 'f#', 'g', 'g#'],
         tempo: [20, 200], // BPM
         duration: [1, 100], // Bars
-        signature: [1, 8],
+        signature: [[1, 8], [1, 2, 4, 8, 16]],
         // topics: [], // Connect to random word API? http://randomword.setgetgo.com/get.php
         // instruments: [], // Abstract > Concrete
         tracks: [1, 16]
@@ -77,6 +77,10 @@ ENO = {
             return subset;
         }
 
+        function pickRandomMember(pool) {
+            return pool[Math.floor((Math.random() * pool.length))];
+        }
+
         function spaceStrings(strings) {
             var spacedOut = '';
 
@@ -102,7 +106,7 @@ ENO = {
                 break;
 
                 case 'signature':
-                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]) + '/' + randomizeBetween(self.pool[item][0], self.pool[item][1]));
+                    self.outputs[item].text(randomizeBetween(self.pool[item][0][0], self.pool[item][0][1]) + ' / ' + pickRandomMember(self.pool[item][1]));
                 break;
 
                 case 'tracks':
