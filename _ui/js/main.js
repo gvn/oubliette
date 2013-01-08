@@ -52,7 +52,8 @@ ENO = {
             item,
             random,
             i,
-            ii;
+            ii,
+            poolList = [];
 
         function randomizeBetween(lower, upper) {
             var randomNumber;
@@ -91,29 +92,58 @@ ENO = {
             return spacedOut;
         }
 
-        for (item in self.pool) {
-            switch (item) {
+        function changeValue(element, text) {
+            element = $(element); // Accept Element of jQuery Collection
+
+            element.fadeTo(0, 0);
+            element.text(text);
+            element.fadeTo(400, 1);
+        }
+
+        function generateValue(type) {
+            var value;
+
+            switch (type) {
                 case 'notes':
-                    self.outputs[item].text(spaceStrings(pickRandomSubset(self.pool[item])));
+                    value = spaceStrings(pickRandomSubset(self.pool[type]));
                 break;
 
                 case 'tempo':
-                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]) + ' bpm');
+                    value = randomizeBetween(self.pool[type][0], self.pool[type][1]) + ' bpm';
                 break;
 
                 case 'duration':
-                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]) + ' bars');
+                    value = randomizeBetween(self.pool[type][0], self.pool[type][1]) + ' bars';
                 break;
 
                 case 'signature':
-                    self.outputs[item].text(randomizeBetween(self.pool[item][0][0], self.pool[item][0][1]) + ' / ' + pickRandomMember(self.pool[item][1]));
+                    value = randomizeBetween(self.pool[type][0][0], self.pool[type][0][1]) + ' / ' + pickRandomMember(self.pool[type][1]);
                 break;
 
                 case 'tracks':
-                    self.outputs[item].text(randomizeBetween(self.pool[item][0], self.pool[item][1]));
+                    value = randomizeBetween(self.pool[type][0], self.pool[type][1]);
                 break;
             }
+
+            return value;
         }
+
+        function animateList(list) {
+            if (list.length) {
+                changeValue(self.outputs[list[0]], generateValue(list[0]));
+                list.shift();
+
+                setTimeout(function() {
+                    animateList(list);
+                }, 100);
+            }
+        }
+
+        for (item in self.pool) {
+            poolList.push(item);
+        }
+
+        animateList(poolList);
     }
 };
 
