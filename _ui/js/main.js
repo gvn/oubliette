@@ -35,7 +35,7 @@ ENO = {
 
         for (item in self.pool) {
             $pool.append('<dt>' + item + '</dt>');
-            self.outputs[item] = $('<dd/>');
+            self.outputs[item] = $('<dd>&nbsp;</dd>');
             $pool.append(self.outputs[item]);
         }
 
@@ -100,6 +100,28 @@ ENO = {
             element.fadeTo(400, 1);
         }
 
+        function typeText(element, text) {
+            var i = 0;
+
+            element = $(element);
+            text = '' + text; // Cast as String
+
+            element.fadeTo(0, 0).text(' ').fadeTo(400, 1);
+
+            function writeLetter(index) {
+                if (i <= text.length) {
+                    element.append(text[i]);
+                    i++;
+
+                    setTimeout(function () {
+                        writeLetter(i);
+                    }, 30);
+                }
+            }
+
+            writeLetter(i);
+        }
+
         function generateValue(type) {
             var value;
 
@@ -129,8 +151,10 @@ ENO = {
         }
 
         function animateList(list) {
+            var output;
+
             if (list.length) {
-                changeValue(self.outputs[list[0]], generateValue(list[0]));
+                typeText(self.outputs[list[0]], generateValue(list[0]));
                 list.shift();
 
                 setTimeout(function() {

@@ -9,7 +9,7 @@ body,div,dl,dt,dd,ul,ol,li,a,h1,h2,h3,h4,h5,h6,pre,form,fieldset,label,input,tex
 
 body {
     background: #fff;
-    color: #000;
+    color: #333;
     font-size: 10px;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 30px;
@@ -72,11 +72,13 @@ dl {
     display: block;
     font-size: 16px;
     margin-bottom: 20px;
+    padding: 0 10px;
 }
     dt {
         line-height: 1.66em;
         display: block;
         font-weight: 900;
+        color: #555;
     }
     dd {
         line-height: 1.66em;
